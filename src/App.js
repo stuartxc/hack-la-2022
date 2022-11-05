@@ -5,6 +5,7 @@ import React, {Component} from "react";
 import Squad from './Components/Squad'
 import '../node_modules/react-vis/dist/style.css';
 import {XYPlot, LineSeries} from 'react-vis';
+import Header from './Components/Experiment/Header';
 
 class App extends Component {
   render() {
@@ -22,6 +23,8 @@ class App extends Component {
     ];
     return (
       <div className="App">
+        
+      <Header/>
       <Squad/>
         <XYPlot height={300} width={300}>
           <LineSeries data={data} />
