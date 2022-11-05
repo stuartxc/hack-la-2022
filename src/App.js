@@ -6,7 +6,8 @@ import React, {Component} from "react";
 import Header from "./Components/Header";
 import Squad from './Components/Squad'
 import '../node_modules/react-vis/dist/style.css';
-import {XYPlot, LineSeries} from 'react-vis';
+import {XYPlot, LineSeries, RadialChart} from 'react-vis';
+import Weighting from './Components/Weighting';
 import GraphHandler from './Components/GraphHandler';
 
 class App extends Component {
@@ -24,6 +25,7 @@ class App extends Component {
       {x: 8, y: 2},
       {x: 9, y: 0}
     ];
+    
     return (
       <div className="App">
 
@@ -34,7 +36,7 @@ class App extends Component {
         <XYPlot height={300} width={300}>
           <LineSeries data={data} />
         </XYPlot>
-  
+        <Weighting />
         <Data/>
       </div>
     );
