@@ -77,11 +77,18 @@ const GraphHandler = ({asn}) => {
     // state to store the assignment target
     const [assignment, setAssignment] = useState('All')
 
+    const [numbers, setNumbers] = useState([]);
     const [data, setData] = useState([]);
 
     // on page reload
     useEffect(() => {
         init();
+        setParsedData([]);
+        setTableRows([]);
+        setValues([]);
+        setAssignment("All");
+        setData([]);
+        setNumbers([]);
     }, [])
     
 
@@ -89,6 +96,10 @@ const GraphHandler = ({asn}) => {
     useEffect(() => {
         handleAssignment();
     }, [asn]);
+
+    useEffect(() => {
+        console.log(percentileCalculation(0));
+    }, [numbers])
 
     
     const histFormat = (array) => {
@@ -110,12 +121,7 @@ const GraphHandler = ({asn}) => {
             keyArray.push(key)
         }
         
-        // for (var [key, value] of map) {
-        //     console.log(key,value)
-        // }
-    
         keyArray.sort(function(a, b){return a - b})
-    
     
         let histArray = []
     
@@ -144,36 +150,44 @@ const GraphHandler = ({asn}) => {
 
         var n = 10; // number of bars
         var interval = Math.ceil((max - min) / n);
-        console.log(min, max, interval);
+        // console.log(min, max, interval);
         var nData = [];
 
-        // format the data
-        for (var i = 1; i <= n; i++) {
-            nData.push({
-                x: min + (interval * i),
-                y: 0
-            });
-        }
+        nums.sort();
+
         
-        // console.log(nData);
-        // console.log(histFormat(nums));
         nData = histFormat(nums);
 
         for (let i = 0; i < nData.length; i++) {
             nData[i]["x"] *= 5;
         }
 
+        setNumbers(nums);
         setData(nData);
-
-
         
 
     };
 
+    const percentileCalculation = ( percentile) => {
+        
+        var idx = Math.floor((numbers.length) * percentile) - 1;
+        console.log(idx, numbers.length, numbers);
+        return idx < 0 ? numbers[0] : numbers[idx];
+   }
+
+   const meanCalculation = () => {
+        var sum = 0;
+        for (var i = 0; i < numbers.length; i++) {
+            sum += numbers[i];
+        }
+
+        return (sum / numbers.length).toFixed(2);
+
+   }
+
     const handleAssignment = () => {
         console.log(tableRows);
         switch(asn) {
-
             case "One":
                 computeData(A1);
                 break;
@@ -186,54 +200,34 @@ const GraphHandler = ({asn}) => {
             case "All":
                 computeData(ALL);
                 break;
-                
-
         }
-    }
 
-    const d = [
-        {x: 0, y: 8},
-        {x: 1, y: 5},
-        {x: 2, y: 4},
-        {x: 3, y: 9},
-        {x: 4, y: 1},
-        {x: 5, y: 7},
-        {x: 6, y: 6},
-        {x: 7, y: 3},
-        {x: 8, y: 2},
-        {x: 9, y: 0}
-      ];
+    }
 
     return (
         <div>
-            <XYPlot height={300} width={300}>
+            <XYPlot height={500} width={1000}>
             <VerticalBarSeries className="vertical-bar-series-example" data={data} />
-            <XAxis />
+            
+            <XAxis tickFormat={v => `${v}`} tickLabelAngle={0} />
             <YAxis />
             </XYPlot>
             
           <br />
-          {/* Table */}
-          <table>
-            <thead>
-              <tr>
-                {tableRows.map((rows, index) => {
-                  return <th key={index}>{rows}</th>;
-                })}
-              </tr>
-            </thead>
-            <tbody>
-              {values.map((value, index) => {
-                return (
-                  <tr key={index}>
-                    {value.map((val, i) => {
-                      return <td key={i}>{val}</td>;
-                    })}
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+          <br />
+
+            <div>
+                Mean: {meanCalculation()}
+
+                Median: {percentileCalculation(0.5)} 
+
+                Range: {numbers[numbers.length - 1] - numbers[0]}
+
+                IQR: {percentileCalculation(0.75) - percentileCalculation(0.25)}
+
+            </div>
+
+
         </div>
       );
 }
