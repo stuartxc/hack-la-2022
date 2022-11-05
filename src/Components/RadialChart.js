@@ -2,42 +2,40 @@ import { XYPlot, LineSeries, RadialChart } from 'react-vis';
 import Weighting from './Weighting';
 import {useState} from "react";
 
-const PieChart = ({width, height}) => {
+const PieChart = ({a1, a2, a3, p, width, height}) => {
 
-    const [assignment1, setAssignment1] = useState(20);
-    const [assignment2, setAssignment2] = useState(30);
-    const [assignment3, setAssignment3] = useState(30);
-    const [participation, setParticipation] = useState(20);
+    // const [assignment1, setAssignment1] = useState(20);
+    // const [assignment2, setAssignment2] = useState(30);
+    // const [assignment3, setAssignment3] = useState(30);
+    // const [participation, setParticipation] = useState(20);
 
-    const handleSubmit = (event) => {
-    event.preventDefault();
-    alert(`The weights you entered were: ${assignment1}, ${assignment2}, ${assignment3}, and ${participation}, respectively.`)
-    }
+    // const handleSubmit = (event) => {
+    // event.preventDefault();
+    // alert(`The weights you entered were: ${assignment1}, ${assignment2}, ${assignment3}, and ${participation}, respectively.`)
+    // }
 
-    const pieDatas = [
+    const pieData = 
         [
-            { angle: assignment1, label: 'Assignment 1'},
-            { angle: assignment2, label: 'Assignment 2'},
-            { angle: assignment3, label: 'Assignment 3'},
-            { angle: participation, label: 'Participation'}
-        ]];
+            { angle: a1, label: 'Assignment 1'},
+            { angle: a2, label: 'Assignment 2'},
+            { angle: a3, label: 'Assignment 3'},
+            { angle: p, label: 'Participation'}
+        ];
 
     return (
         <div>
-            {pieDatas.map((i) => (
-                <div>
-                    <RadialChart
-                        data={i}
-                        width={width}
-                        height={height}
-                        showLabels={true}
-                        labelsAboveChildren={true}
-                    />
-                </div>
+            <RadialChart
+                data={pieData}
+                width={width}
+                height={height}
+                showLabels={true}
+                labelsAboveChildren={true}
+            />
+        </div>
 
-            ))}
+            
 
-            <h4>
+            /* <h4>
                 Use these fields to change the % weight of each assignment (should add up to 100% for best results):
             </h4>
             <form onSubmit={handleSubmit}>
@@ -70,9 +68,7 @@ const PieChart = ({width, height}) => {
                     />
                 </label>
                 <input type="submit"/>
-            </form>
-        </div>
-
+            </form> */
 
     )
 

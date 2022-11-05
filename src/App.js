@@ -5,7 +5,7 @@ import React, {Component} from "react";
 import Squad from './Components/Squad'
 import '../node_modules/react-vis/dist/style.css';
 import {XYPlot, LineSeries, RadialChart} from 'react-vis';
-import PieChart from './Components/RadialChart';
+import Weighting from './Components/Weighting';
 
 class App extends Component {
   render() {
@@ -28,8 +28,7 @@ class App extends Component {
         <XYPlot height={300} width={300}>
           <LineSeries data={data} />
         </XYPlot>
-          <PieChart width={300} height={300}/>
-  
+        <Weighting />
         <Data/>
       </div>
     );
