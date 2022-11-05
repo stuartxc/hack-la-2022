@@ -21,11 +21,6 @@ class App extends Component {
       {x: 8, y: 2},
       {x: 9, y: 0}
     ];
-
-    const pieData = [
-      { angle: 1, label: 'First section', color: 25 },
-      { angle: 5, label: 'Second section', color: 100 },
-      { angle: 2, label: 'Third section', color: 200 }]
     
     return (
       <div className="App">
@@ -33,10 +28,6 @@ class App extends Component {
         <XYPlot height={300} width={300}>
           <LineSeries data={data} />
         </XYPlot>
-        <RadialChart
-          data={pieData}
-          width={300}
-          height={300} />
           <PieChart width={300} height={300}/>
   
         <Data/>
