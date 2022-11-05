@@ -24,14 +24,6 @@ const GraphHandler = ({asn}) => {
     const A3 = "Assignment 3 Current Score";
     const ALL = "Current Score";
 
-    const fetchCsv = () => {
-        return fetch("https://cors-anywhere.herokuapp.com/https://raw.githubusercontent.com/UBC-LA-Hackathon/hack-la-2022/main/data/additional/gradebook.csv",
-            {headers: { 'content-type': 'text/csv;charset=UTF-8'}}
-        ).then((response) => response.text()
-        ).then((data) => {
-            console.log(data);
-        });
-    }
     const init = () => {
 
         Papa.parse("https://cors-anywhere.herokuapp.com/https://raw.githubusercontent.com/UBC-LA-Hackathon/hack-la-2022/main/data/additional/gradebook.csv", {
