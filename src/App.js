@@ -25,9 +25,7 @@ class App extends Component {
     ];
     return (
       <div className="App">
-        <XYPlot height={300} width={300}>
-          <LineSeries data={data} />
-        </XYPlot>
+        
         <Header/>
         {/* <Data/> */}
       </div>
