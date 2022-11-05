@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import Data from './Components/Data';
 import React, {Component} from "react";
-
+import Squad from './Components/Squad'
 import '../node_modules/react-vis/dist/style.css';
 import {XYPlot, LineSeries} from 'react-vis';
 
@@ -22,10 +22,11 @@ class App extends Component {
     ];
     return (
       <div className="App">
+      <Squad/>
         <XYPlot height={300} width={300}>
           <LineSeries data={data} />
         </XYPlot>
-
+  
         <Data/>
       </div>
     );
