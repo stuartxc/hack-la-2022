@@ -2,6 +2,7 @@ import { Component, useEffect, useState } from "react";
 import Papa from "papaparse";
 import { getSystemErrorMap } from "util";
 import csv from "../Data/gradebook.csv"
+import "./Header.css"
 
 import {  
     XYPlot,
@@ -22,6 +23,7 @@ const GraphHandler = ({asn}) => {
     const A1 = "Assignment 1 Current Score";
     const A2 = "Assignment 2 Current Score";
     const A3 = "Assignment 3 Current Score";
+    const PART = "Participation & engagement Current Score";
     const ALL = "Current Score";
 
     const init = () => {
@@ -139,14 +141,14 @@ const GraphHandler = ({asn}) => {
             nums.push(num);
             
         }
-
         var n = 10; // number of bars
         var interval = Math.ceil((max - min) / n);
         // console.log(min, max, interval);
         var nData = [];
 
-        nums.sort();
-
+        nums.sort((a, b)=>{
+            return a - b;
+        });
         
         nData = histFormat(nums);
 
@@ -192,12 +194,15 @@ const GraphHandler = ({asn}) => {
             case "All":
                 computeData(ALL);
                 break;
+            case "Participation":
+                computeData(PART);
+                break;
         }
 
     }
 
     return (
-        <div>
+        <div className="center">
             <XYPlot height={500} width={1000}>
             <VerticalBarSeries className="vertical-bar-series-example" data={data} />
             
@@ -210,15 +215,16 @@ const GraphHandler = ({asn}) => {
 
             <div>
                 Mean: {meanCalculation()}
-
+                {"\t"}
                 Median: {percentileCalculation(0.5)} 
-
+                {"\t"}
                 Range: {numbers[numbers.length - 1] - numbers[0]}
-
+                {"\t"}
                 IQR: {percentileCalculation(0.75) - percentileCalculation(0.25)}
-
+                {"\t"}
             </div>
 
+            
 
         </div>
       );

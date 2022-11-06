@@ -4,6 +4,7 @@ import Data from './Components/Data';
 import React, {Component} from "react";
 
 import Header from "./Components/Header";
+import RealHeader from "./Components/RealHeader"
 import Squad from './Components/Squad'
 import '../node_modules/react-vis/dist/style.css';
 import {XYPlot, LineSeries, RadialChart} from 'react-vis';
@@ -15,11 +16,11 @@ class App extends Component {
   render() {
     
     return (
-      <div className="App">
-
+      <div className="App" >
+        <RealHeader/>
         <Squad/>
         <Header/>
-        <Weighting />
+        
       </div>
     );
   }
